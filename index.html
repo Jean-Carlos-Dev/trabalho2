@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistema Cliente-Servidor</title>
+</head>
+<body>
+  <h1>Sistema Cliente-Servidor</h1>
+  <form action="/soma" method="post"></form>
+  <input type="number" id="num1" placeholder="Número 1">
+  <input type="number" id="num2" placeholder="Número 2">
+  <button onclick="realizarSoma()">Realizar Soma</button>
+  </form>
+  <script>
+    function realizarSoma() {
+      const num1 = parseInt(document.getElementById('num1').value);
+      const num2 = parseInt(document.getElementById('num2').value);
+
+      const data = { num1, num2 };
+
+      fetch('http://localhost:3000/soma', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Resultado:', result.resultado);
+        alert('Resultado: ' + result.resultado);
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        alert('erro: ' + error);
+      });
+    }
+  </script>
+</body>
+</html>
